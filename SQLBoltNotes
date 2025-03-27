@@ -1,0 +1,10 @@
+-- ORDER OF EXECUTION FOR QUERIES -- 
+--(1) FROM and JOIN determines the tables you will work with 
+--(2) WHERE filters out certain rows from the tables to determine what data you will work with
+--(3) GROUP BY will give you the information for each unique value of a certain column (for that aggregate function)
+--(4) HAVING filters out certain grouped rows based on a constraint
+--(5) SELECT will actually compute the columns desired 
+--(6) DISTINCT will remove any duplicates in the selected data
+--(7) ORDER BY will sort the selected data 
+--(8) LIMIT and OFFSET will give a certain subset of the rows if desired
+       (OFFSET will determine which row to start from when limiting to a certain number of rows)
