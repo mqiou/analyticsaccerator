@@ -43,4 +43,22 @@ GROUP BY 1, 2
 
 --LEVEL 2--
 
---(1)
+--(1)Which product category has the highest number of orders among 31-year olds? Return only the top product category.
+-- Accessories 
+SELECT Product_Category, COUNT(*), Customer_Age 
+FROM prework.sales 
+WHERE Customer_Age = 31
+GROUP BY 1,3
+ORDER BY 2 DESC
+
+--(2)Of female customers in the U.S. who purchased bike-related products in 2015, what was the average revenue?
+--2610.20
+SELECT AVG(Revenue)
+FROM prework.sales 
+WHERE Customer_Gender = 'F'
+AND Product_Category = 'Bikes' 
+AND Year = 2015
+
+--(3)
+
+
