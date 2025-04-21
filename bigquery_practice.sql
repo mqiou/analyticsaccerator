@@ -34,12 +34,12 @@ WHERE Year = 2015
 SELECT DISTINCT Sub_Category FROM prework.sales 
 WHERE Year IN (2014,2015,2016)
   AND Country = 'France'
-ORDER BY 1
+ORDER BY 1;
 
 --(5)Within each product category and age group (combined), what is the average order quantity and total profit?
 SELECT Product_Category, Age_Group, AVG(ORDER_Quantity) Avg_Qty, SUM(Profit) total_profit
   FROM prework.sales
-GROUP BY 1, 2
+GROUP BY 1, 2;
 
 --LEVEL 2--
 
@@ -49,7 +49,7 @@ SELECT Product_Category, COUNT(*), Customer_Age
 FROM prework.sales 
 WHERE Customer_Age = 31
 GROUP BY 1,3
-ORDER BY 2 DESC
+ORDER BY 2 DESC;
 
 --(2)Of female customers in the U.S. who purchased bike-related products in 2015, what was the average revenue?
 --2610.20
@@ -57,8 +57,30 @@ SELECT AVG(Revenue)
 FROM prework.sales 
 WHERE Customer_Gender = 'F'
 AND Product_Category = 'Bikes' 
-AND Year = 2015
+AND Year = 2015;
 
---(3)
+--(3)--Categorize all purchases into bike vs. non-bike related purchases. How many purchases were there in each group among male customers in 2016?
+SELECT 
+  CASE WHEN Product_Category = 'Bikes' THEN 'Bike'
+     ELSE 'Non-Bike'
+     END AS Category_Type,
+  COUNT(*) as Num_Purchases
+FROM prework.sales
+  WHERE Year = 2016
+    AND Customer_Gender = 'M'
+GROUP BY 1;
 
+--(4)Among people who purchased socks or caps (use sub_category), what was the average profit earned per country per year, ordered by highest average profit to lowest average profit?
+
+SELECT Year, Country, AVG(Profit)
+FROM prework.sales 
+WHERE Sub_Category IN ('caps','socks')
+GROUP BY 1,2
+ORDER BY 3 DESC;
+
+--(5)For male customers who purchased the AWC Logo Cap (use product), use a window function to order the purchase dates from oldest to most recent within each gender.
+select *, 
+	row_number() over (partition by customer_gender order by date asc ) as date_rank
+from prework.sales
+where customer_gender = 'M' and product = 'AWC Logo Cap';
 
